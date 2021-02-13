@@ -16,8 +16,13 @@ class PostController extends Controller
 
     public function create()
     {
-        $posts = Post::get();
+        return view('admin.posts.create');
+    }
 
-        return view('admin.posts.create', compact('posts'));
+    public function store(Request $request)
+    {
+        Post::create($request->all());
+
+        return redirect()->route('posts.index');
     }
 }

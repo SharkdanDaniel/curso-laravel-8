@@ -1,7 +1,6 @@
 <x-content>
-
     <div class="d-flex justify-content-center align-items-center">
-        <div class="card mb-2">
+        <div class="standard-card card mb-2">
             <h1 class="card-header">Cadastrar novo post</h1>
             <form class="pr-4 py-3 pl-2" action="{{ route('posts.store') }}" method="post">
                 @csrf
@@ -20,12 +19,4 @@
             </form>
         </div>
     </div>
-
-    <style>
-        .card {
-            width: 100%;
-            max-width: 700px;
-        }
-
-    </style>
 </x-content>

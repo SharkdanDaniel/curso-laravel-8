@@ -15,7 +15,7 @@
                 <tbody>
                     @foreach ($posts as $post)
                         <tr>
-                            <th>{{ $post->id }}</th>
+                            <th>{{ $post->id }} <a class="btn" href="{{ route('posts.show', $post->id) }}">Ver</a> </th>
                             <th>{{ $post->title }}</th>
                             <th>{{ $post->content }}</th>
                             <th>{{ $post->created_at }}</th>

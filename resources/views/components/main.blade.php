@@ -16,6 +16,7 @@
 
 <body>
     <div class="h-100 container">
+        <x-alert></x-alert>
         {{ $slot }}
     </div>
 </body>

@@ -1,4 +1,4 @@
-<x-main>
+<x-content>
     <div class="card">
         <h1 class="card-header">Posts</h1>
         <div class="card-body">
@@ -27,4 +27,4 @@
         </div>
     </div>
     <a class="btn btn-primary mt-2" href="{{ route('posts.create') }}">Criar novo post</a>
-</x-main>
+</x-content>

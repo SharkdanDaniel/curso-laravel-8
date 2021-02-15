@@ -1,10 +1,10 @@
  <!-- Modal -->
 <div class="modal fade" id="exampleModal" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="BackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">@yield('modal-title')</h5>
+                <h5 class="modal-title" id="BackdropLabel">@yield('modal-title')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

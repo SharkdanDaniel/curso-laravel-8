@@ -15,22 +15,6 @@ class PostController extends Controller
         return view('admin.posts.index', compact('posts'));
     }
 
-    public function create()
-    {
-        return view('admin.posts.create');
-    }
-
-    public function store(StoreUpdatePost $request)
-    {
-
-        Post::create($request->all());
-
-        return redirect()->route('posts.index')
-        ->with('timer', 2000)
-        ->with('message', 'Post adicionado com sucesso!');
-        // ->with('error', 'danger')
-    }
-
     public function show($id)
     {
         // $post = Post::where('id', $id)->first();
@@ -43,14 +27,52 @@ class PostController extends Controller
         return view('admin.posts.show', compact('post'));
     }
 
+    public function create()
+    {
+        return view('admin.posts.create');
+    }
+
+    public function store(StoreUpdatePost $request)
+    {
+
+        Post::create($request->all());
+
+        return redirect()->route('posts.index')
+            ->with('timer', 2000)
+            ->with('message', 'Post adicionado com sucesso!');
+        // ->with('error', 'danger')
+    }
+
+    public function edit($id)
+    {
+        if (!$post = Post::find($id)) {
+            return redirect()->back();
+        }
+
+        return view('admin.posts.edit', compact('post'));
+    }
+
+    public function update(StoreUpdatePost $request, $id)
+    {
+
+        if (!$post = Post::find($id)) {
+            return redirect()->back();
+        }
+
+        $post->update($request->all());
+
+        return redirect()->route('posts.index')
+            ->with('message', 'Post atualizado com sucesso!');
+    }
+
     public function destroy($id)
     {
         if (!$post = Post::find($id)) {
             return redirect()->route('posts.index');
         }
         $post->delete();
-        
+
         return redirect()->route('posts.index')
-        ->with('message', 'Post deletado com sucesso!');
+            ->with('message', 'Post deletado com sucesso!');
     }
 }

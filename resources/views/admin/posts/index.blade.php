@@ -36,6 +36,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="card-footer">
+                {{ $posts->links() }}
+            </div>
         </div>
     </div>
 </x-content>

@@ -30,7 +30,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('admin.posts.create');
+        // return view('admin.posts.create');
+        return view('admin.posts._partials.form');
     }
 
     public function store(StoreUpdatePost $request)
@@ -50,7 +51,8 @@ class PostController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.posts.edit', compact('post'));
+        // return view('admin.posts.edit', compact('post'));
+        return view('admin.posts._partials.form', compact('post'));
     }
 
     public function update(StoreUpdatePost $request, $id)
@@ -75,5 +77,15 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')
             ->with('message', 'Post deletado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+
+        $posts = Post::where('title', '=', "{$request->search}")
+            ->orWhere('content', 'LIKE', "%{$request->search}%")
+            ->paginate(1);
+        return view('admin.posts.index', compact('posts', 'filters'));
     }
 }

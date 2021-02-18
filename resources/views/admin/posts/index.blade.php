@@ -5,6 +5,15 @@
             <a class="btn btn-primary" href="{{ route('posts.create') }}">Criar novo post</a>
         </div>
         <div class="card-body">
+            <form action="{{ route('posts.search') }}" method="post">
+                @csrf
+                <div class="input-group">
+                    <input class="form-control" type="text" name="search" placeholder="Pesquisar">
+                    <div class="input-group-append">
+                        <button class="input-group-text" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -36,9 +45,13 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="card-footer">
+        </div>
+        <div class="card-footer">
+            @if (isset($filters))
+                {{ $posts->appends($filters)->links() }}
+            @else
                 {{ $posts->links() }}
-            </div>
+            @endif
         </div>
     </div>
 </x-content>

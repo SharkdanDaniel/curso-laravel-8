@@ -1,4 +1,7 @@
 <x-content>
+    @section('title')
+        Listagem dos posts
+    @endsection
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h1 class="">Posts</h1>

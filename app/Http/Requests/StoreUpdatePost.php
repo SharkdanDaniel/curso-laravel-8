@@ -25,7 +25,8 @@ class StoreUpdatePost extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:160', // exemplo 1
-            'content' => ['required', 'min:5', 'max:10000'] //exemplo 2
+            'content' => ['nullable', 'min:5', 'max:10000'], //exemplo 2
+            'image' => ['required', 'image']
         ];
     }
 }

@@ -21,6 +21,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Avatar</th>
                         <th>Título</th>
                         <th>Conteúdo</th>
                         <th class="text-center w-25">Ações</th>
@@ -31,6 +32,8 @@
                         <tr>
                             <th>{{ $post->id }} <a class="btn" href="{{ route('posts.show', $post->id) }}">Ver</a>
                             </th>
+                            <th><img src="{{ url("storage/{$post->image}") }}" alt="{{ $post->title }}"
+                                    style="max-width: 50px"></th>
                             <th>{{ $post->title }}</th>
                             <th>{{ $post->content }}</th>
                             <th class="text-center">

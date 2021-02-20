@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdatePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -36,8 +38,17 @@ class PostController extends Controller
 
     public function store(StoreUpdatePost $request)
     {
+        // $request->file('image') esta é outra maneira de buscar a imagem
 
-        Post::create($request->all());
+        $data = $request->all();
+
+        if ($request->image->isValid()) {
+            $nameFile = Str::of($request->title)->slug('-') . '.' . $request->image->getClientOriginalExtension();
+            $image = $request->image->storeAs('posts', $nameFile);
+            $data['image'] = $image;
+        }
+
+        Post::create($data);
 
         return redirect()->route('posts.index')
             ->with('timer', 2000)
@@ -55,14 +66,26 @@ class PostController extends Controller
         return view('admin.posts._partials.form', compact('post'));
     }
 
-    public function update(StoreUpdatePost $request, $id)
+    public function update(StoreUpdatePost $request, $id = null)
     {
 
         if (!$post = Post::find($id)) {
             return redirect()->back();
         }
 
-        $post->update($request->all());
+        $data = $request->all();
+
+        if ($request->image && $request->image->isValid()) {
+            if (Storage::exists($post->image)) {
+                Storage::delete($post->image);
+            }
+
+            $nameFile = Str::of($request->title)->slug('-') . '.' . $request->image->getClientOriginalExtension();
+            $image = $request->image->storeAs('posts', $nameFile);
+            $data['image'] = $image;
+        }
+
+        $post->update($data);
 
         return redirect()->route('posts.index')
             ->with('message', 'Post atualizado com sucesso!');
@@ -72,6 +95,10 @@ class PostController extends Controller
     {
         if (!$post = Post::find($id)) {
             return redirect()->route('posts.index');
+        }
+
+        if (Storage::exists($post->image)) {
+            Storage::delete($post->image);
         }
         $post->delete();
 
